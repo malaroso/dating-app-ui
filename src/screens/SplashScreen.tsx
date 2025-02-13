@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Animated, Image } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import { colors } from '../styles/colors';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -16,6 +17,7 @@ type RootStackParamList = {
 const SplashScreen = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList, 'Splash'>>();
   const scaleAnim = useRef(new Animated.Value(1)).current;
+  const moveAnim = useRef(new Animated.Value(0)).current;
 
   const [fontsLoaded] = Font.useFonts({
     'Montserrat-Medium': require('../../assets/fonts/Montserrat-Medium.ttf'),
@@ -26,7 +28,7 @@ const SplashScreen = () => {
       Animated.sequence([
         Animated.timing(scaleAnim, {
           toValue: 1.2,
-          duration: 1000,
+          duration: 2200,
           useNativeDriver: true,
         }),
         Animated.timing(scaleAnim, {
@@ -36,7 +38,22 @@ const SplashScreen = () => {
         }),
       ])
     ).start();
-  }, [scaleAnim]);
+
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(moveAnim, {
+          toValue: -10,
+          duration: 2000,
+          useNativeDriver: true,
+        }),
+        Animated.timing(moveAnim, {
+          toValue: 0,
+          duration: 2000,
+          useNativeDriver: true,
+        }),
+      ])
+    ).start();
+  }, [scaleAnim, moveAnim]);
 
   if (!fontsLoaded) {
     return <AppLoading />;
@@ -47,9 +64,28 @@ const SplashScreen = () => {
   };
 
   return (
-    <View style={styles.background}>
-      <Ionicons name="cloud-outline" size={70} color={colors.buttonText} style={styles.cloud1} />
-      <Ionicons name="cloud-outline" size={50} color={colors.buttonText} style={styles.cloud2} />
+    <LinearGradient
+      colors={[colors.gradientStart, colors.gradientEnd]}
+      style={styles.background}
+    >
+      <Animated.View style={[styles.cloud1, { transform: [{ translateY: moveAnim }] }]}>
+        <Ionicons name="heart-outline" size={80} color={colors.buttonText} />
+      </Animated.View>
+      <Animated.View style={[styles.cloud3, { transform: [{ translateY: moveAnim }] }]}>
+        <Ionicons name="heart-outline" size={45} color={colors.buttonText} />
+      </Animated.View>
+      <Animated.View style={[styles.cloud4, { transform: [{ translateY: moveAnim }] }]}>
+        <Ionicons name="heart-outline" size={32} color={colors.buttonText} />
+      </Animated.View>
+      <Animated.View style={[styles.cloud2, { transform: [{ translateY: moveAnim }] }]}>
+        <Ionicons name="heart-outline" size={40} color={colors.buttonText} />
+      </Animated.View>
+      <Animated.View style={[styles.cloud5, { transform: [{ translateY: moveAnim }] }]}>
+        <Ionicons name="heart-outline" size={60} color={colors.buttonText} />
+      </Animated.View>
+      <Animated.View style={[styles.cloud6, { transform: [{ translateY: moveAnim }] }]}>
+        <Ionicons name="heart-outline" size={80} color={colors.buttonText} />
+      </Animated.View>
       <View style={styles.container}>
         <Animated.View style={{ transform: [{ scale: scaleAnim }] }}>
           <Image source={require('../../assets/remove-logo.png')} style={styles.logo} />
@@ -58,19 +94,18 @@ const SplashScreen = () => {
       </View>
 
       <TouchableOpacity style={styles.button} onPress={handlePress}>
-          <Text style={styles.buttonText}>Love starts here – welcome to Coeur!</Text>
-          <View style={styles.iconContainer}>
-            <Ionicons name="arrow-forward" size={20} color={colors.primary} />
-          </View>
-        </TouchableOpacity>
-    </View>
+        <Text style={styles.buttonText}>Love starts here – welcome to Coeur!</Text>
+        <View style={styles.iconContainer}>
+          <Ionicons name="arrow-forward" size={20} color={colors.primary} />
+        </View>
+      </TouchableOpacity>
+    </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-    backgroundColor: colors.primary,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -80,10 +115,34 @@ const styles = StyleSheet.create({
     left: 30,
     opacity: 0.2,
   },
+  cloud3: {
+    position: 'absolute',
+    top: 50,
+    left: 20,
+    opacity: 0.2,
+  },
+  cloud4: {
+    position: 'absolute',
+    top: 45,
+    left: 10,
+    opacity: 0.2,
+  },
   cloud2: {
     position: 'absolute',
-    bottom: 90,
-    right: 50,
+    bottom: 125,
+    right: 10,
+    opacity: 0.2,
+  },
+  cloud5: {
+    position: 'absolute',
+    bottom: 130,
+    right: 20,
+    opacity: 0.2,
+  },
+  cloud6: {
+    position: 'absolute',
+    bottom: 140,
+    right: 30,
     opacity: 0.2,
   },
   container: {
@@ -92,7 +151,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   logo: {
-    width: 140,
+    width: 160,
     height: 140,
     marginBottom: 20,
   },
@@ -124,8 +183,10 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: colors.buttonText,
-    fontSize: 16,
+    fontSize: 15,
     marginRight: 10,
+    fontFamily: 'Montserrat-Medium',
+    fontWeight: 'bold',
   },
   iconContainer: {
     backgroundColor: colors.buttonText,
