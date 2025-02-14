@@ -64,10 +64,7 @@ const SplashScreen = () => {
   };
 
   return (
-    <LinearGradient
-      colors={[colors.gradientStart, colors.gradientEnd]}
-      style={styles.background}
-    >
+    <LinearGradient colors={[colors.gradientStart, colors.gradientEnd]}  start={{ x: 0, y: 0 }}    end={{ x: 1, y: 1.1 }}  locations={[1, .2]}  style={styles.background}>
       <Animated.View style={[styles.cloud1, { transform: [{ translateY: moveAnim }] }]}>
         <Ionicons name="heart-outline" size={80} color={colors.buttonText} />
       </Animated.View>
