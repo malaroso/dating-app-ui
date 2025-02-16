@@ -2,19 +2,19 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, SafeAreaView, Modal, Platform } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { colors } from '../styles/colors';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { FontAwesome } from '@expo/vector-icons';
 import { StackNavigationProp } from '@react-navigation/stack';
-import * as Font from 'expo-font';
-import AppLoading from 'expo-app-loading';
 
 // Stack parametrelerini tanımlayın
 type RootStackParamList = {
-  UserInfoStep2: undefined; // İkinci adıma yönlendirme
+  UserInfoStep2: { formData: { firstName: string; lastName: string; birthDate: Date; phoneNumber: any; } }; 
   VerificationScreen: { phoneNumber: string };
+  UserInfoScreen: { phoneNumber: string };
 };
 
 type UserInfoScreenNavigationProp = StackNavigationProp<RootStackParamList, 'UserInfoStep2'>;
+type UserInfoScreenRouteProp = RouteProp<RootStackParamList, 'UserInfoScreen'>;
 
 const UserInfoScreen = () => {
   const [firstName, setFirstName] = useState('');
@@ -23,31 +23,19 @@ const UserInfoScreen = () => {
   const [tempDate, setTempDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
   const navigation = useNavigation<UserInfoScreenNavigationProp>();
-  const route = useRoute();
-  const { phoneNumber } = route.params || {}; // Varsayılan değer ekleyin
+  const route = useRoute<UserInfoScreenRouteProp>();
+  const { phoneNumber } = route.params || {};
 
-  const [fontsLoaded] = Font.useFonts({
-    'Montserrat-Medium': require('../../assets/fonts/Montserrat-Medium.ttf'),
-    'Montserrat-Bold': require('../../assets/fonts/Montserrat-Bold.ttf'),
-  });
-
-  if (!fontsLoaded) {
-    return <AppLoading />;
-  }
 
   const handleContinue = () => {
     const formData = {
       firstName,
       lastName,
       birthDate,
-      phoneNumber, // Önceki ekrandan gelen telefon numarası
+      phoneNumber,
     };
 
     navigation.navigate('UserInfoStep2', { formData });
-  };
-
-  const handleNext = () => {
-    navigation.navigate('VerificationScreen', { phoneNumber });
   };
 
   const onChange = (event: any, selectedDate?: Date) => {
@@ -103,6 +91,7 @@ const UserInfoScreen = () => {
                 display={Platform.OS === 'ios' ? 'spinner' : 'default'}
                 onChange={onChange}
                 maximumDate={new Date()}
+                textColor={Platform.OS === 'ios' ? 'black' : undefined}
               />
               <TouchableOpacity style={styles.modalButton} onPress={handleDone}>
                 <Text style={styles.buttonText}>Done</Text>
