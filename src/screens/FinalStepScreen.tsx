@@ -1,16 +1,39 @@
-import { useRoute } from '@react-navigation/native';
-import { View, Text } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import { useRoute, RouteProp } from '@react-navigation/native';
+
+// Stack parametrelerini tanımlayın
+type RootStackParamList = {
+  FinalStepScreen: { formData: any };
+};
+
+type FinalStepScreenRouteProp = RouteProp<RootStackParamList, 'FinalStepScreen'>;
 
 const FinalStepScreen = () => {
-  const route = useRoute();
-  const { formData } = route.params;
+  const route = useRoute<FinalStepScreenRouteProp>();
+  const { formData } = route.params || {};
+
+  // formData'yı konsola yazdır
+  console.log('Form Data:', formData);
 
   return (
-    <View>
-      <Text>First Name: {formData.firstName}</Text>
-      <Text>Last Name: {formData.lastName}</Text>
-      <Text>Birth Date: {formData.birthDate.toLocaleDateString()}</Text>
-      <Text>Phone Number: {formData.phoneNumber}</Text>
+    <View style={styles.container}>
+      <Text style={styles.text}>Final Step</Text>
     </View>
   );
-}; 
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+  },
+  text: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+});
+
+export default FinalStepScreen; 

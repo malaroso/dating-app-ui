@@ -2,16 +2,18 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, Modal } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { colors } from '../styles/colors';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { FontAwesome } from '@expo/vector-icons';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 // Stack parametrelerini tanımlayın
 type RootStackParamList = {
   FinalStepScreen: undefined;
+  UserInfoStep2Screen: { formData: any };
 };
 
 type UserInfoStep2ScreenNavigationProp = StackNavigationProp<RootStackParamList, 'FinalStepScreen'>;
+type UserInfoStep2ScreenRouteProp = RouteProp<RootStackParamList, 'UserInfoStep2Screen'>;
 
 const UserInfoStep2Screen = () => {
   const [zodiacSign, setZodiacSign] = useState('');
@@ -21,7 +23,7 @@ const UserInfoStep2Screen = () => {
   const [showZodiacPicker, setShowZodiacPicker] = useState(false);
   const [showRelationshipPicker, setShowRelationshipPicker] = useState(false);
   const navigation = useNavigation<UserInfoStep2ScreenNavigationProp>();
-  const route = useRoute();
+  const route = useRoute<UserInfoStep2ScreenRouteProp>();
   const { formData } = route.params || {};
 
   const handleContinue = () => {
@@ -31,7 +33,7 @@ const UserInfoStep2Screen = () => {
       relationshipStatus,
     };
 
-    navigation.navigate('FinalStepScreen', { formData: updatedFormData });
+    navigation.navigate('UserInfoStep3', { formData: updatedFormData });
   };
 
   const handleZodiacDone = () => {
@@ -52,7 +54,10 @@ const UserInfoStep2Screen = () => {
         </View>
       </TouchableOpacity>
       <View style={styles.innerContainer}>
-        <Text style={styles.title}>Tell us more about you</Text>
+        <View style={styles.titleContainer}>
+            <Text style={styles.title}>Tell us a little more about you. 💖</Text>
+            <Text style={styles.title2}>Your zodiac sign and relationship status help us find your perfect match!</Text>
+        </View>
         <TouchableOpacity style={styles.input} onPress={() => {
           setTempZodiacSign(zodiacSign);
           setShowZodiacPicker(true);
@@ -77,7 +82,15 @@ const UserInfoStep2Screen = () => {
         >
           <View style={styles.modalContainer}>
             <View style={styles.pickerContainer}>
-              <Picker selectedValue={tempZodiacSign} onValueChange={(itemValue) => setTempZodiacSign(itemValue)}>
+              <TouchableOpacity style={styles.closeButton} onPress={() => setShowZodiacPicker(false)}>
+                <FontAwesome name="close" size={24} color={colors.text} />
+              </TouchableOpacity>
+              <Picker
+                selectedValue={tempZodiacSign}
+                onValueChange={(itemValue) => setTempZodiacSign(itemValue)}
+                style={{ color: 'black', width: '100%' }}
+                itemStyle={{ color: 'black' }}
+              >
                 <Picker.Item label="Aries" value="Aries" />
                 <Picker.Item label="Taurus" value="Taurus" />
                 <Picker.Item label="Gemini" value="Gemini" />
@@ -105,7 +118,15 @@ const UserInfoStep2Screen = () => {
         >
           <View style={styles.modalContainer}>
             <View style={styles.pickerContainer}>
-              <Picker  selectedValue={tempRelationshipStatus}  onValueChange={(itemValue) => setTempRelationshipStatus(itemValue)}>
+              <TouchableOpacity style={styles.closeButton} onPress={() => setShowRelationshipPicker(false)}>
+                <FontAwesome name="close" size={24} color={colors.text} />
+              </TouchableOpacity>
+              <Picker
+                selectedValue={tempRelationshipStatus}
+                onValueChange={(itemValue) => setTempRelationshipStatus(itemValue)}
+                style={{ color: 'black', width: '100%' }}
+                itemStyle={{ color: 'black' }}
+              >
                 <Picker.Item label="Single" value="Single" />
                 <Picker.Item label="In a Relationship" value="In a Relationship" />
                 <Picker.Item label="Married" value="Married" />
@@ -151,12 +172,25 @@ const styles = StyleSheet.create({
     width: '100%',
     marginTop: 100,
   },
+  titleContainer: {
+    alignItems: 'center',
+    marginBottom: 20,
+    display: 'flex',
+    flexDirection: 'column',
+    paddingHorizontal: 14,
+  },
   title: {
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: 'bold',
     color: colors.text,
-    marginBottom: 20,
-    marginHorizontal: 20,
+    marginBottom: 10,
+    fontFamily: 'Montserrat-Bold',
+  },
+  title2: {
+    fontSize: 14,
+    color: colors.text,
+    marginBottom: 40,
+    fontFamily: 'Montserrat-Medium',
   },
   input: {
     width: '90%',
@@ -183,6 +217,10 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     padding: 20,
+  },
+  closeButton: {
+    alignSelf: 'flex-end',
+    marginBottom: 10,
   },
   modalButton: {
     backgroundColor: colors.buttonBackground,
