@@ -128,11 +128,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 13,
     marginBottom: 13,
     marginRight: 13,
+    borderWidth: 1,
+    borderColor: colors.primary,
   },
   tagSelected: {
     borderColor: colors.primary,
     backgroundColor: '#fff',
-    borderWidth: 2,
+    borderWidth: 1,
   },
   tagText: {
     color: colors.buttonText,

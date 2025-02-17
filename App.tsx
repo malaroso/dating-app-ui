@@ -12,6 +12,7 @@ import UserInfoStep2Screen from './src/screens/UserInfoStep2Screen';
 import UserInfoStep3Screen from './src/screens/UserInfoStep3Screen';
 import UserInfoStep4Screen from './src/screens/UserInfoStep4Screen';
 import FinalStepScreen from './src/screens/FinalStepScreen';
+import HomeScreen from './src/screens/home/HomeScreen';
 
 const Stack = createStackNavigator();
 
@@ -37,6 +38,8 @@ const App = () => {
         <Stack.Screen name="UserInfoStep3" component={UserInfoStep3Screen} options={{ headerShown: false }} />
         <Stack.Screen name="UserInfoStep4" component={UserInfoStep4Screen} options={{ headerShown: false }} />
         <Stack.Screen name="FinalStepScreen" component={FinalStepScreen} options={{ headerShown: false }} />
+
+        <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
