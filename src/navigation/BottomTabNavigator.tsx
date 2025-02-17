@@ -5,6 +5,7 @@ import UserInfoScreen from '../screens/UserInfoScreen';
 import FinalStepScreen from '../screens/FinalStepScreen';
 import { FontAwesome } from '@expo/vector-icons';
 import { View, StyleSheet } from 'react-native';
+import MatchScreen from '../screens/home/MatchScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -17,7 +18,7 @@ const BottomTabNavigator = () => {
 
           if (route.name === 'Home') {
             iconName = 'home';
-          } else if (route.name === 'UserInfo') {
+          } else if (route.name === 'MatchScreen') {
             iconName = 'compass';
           } else if (route.name === 'FinalStep') {
             iconName = 'heart';
@@ -36,7 +37,7 @@ const BottomTabNavigator = () => {
       })}
     >
       <Tab.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
-      <Tab.Screen name="UserInfo" component={UserInfoScreen} options={{ headerShown: false }} />
+      <Tab.Screen name="MatchScreen" component={MatchScreen} options={{ headerShown: false }} />
       <Tab.Screen name="FinalStep" component={FinalStepScreen} options={{ headerShown: false }} />
       <Tab.Screen name="Profile" component={FinalStepScreen} options={{ headerShown: false }} />
     </Tab.Navigator>
