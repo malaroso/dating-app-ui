@@ -1,5 +1,5 @@
 export const colors = {
-  primary: '#FF9AA2',
+  primary: '#FF5864',
   gradientStart: '#FF4F79',
   gradientEnd: '#FF7854', 
   accent: '#FFB7B2', 
@@ -8,4 +8,6 @@ export const colors = {
   inputBackground: '#FFF',
   buttonBackground: '#FF9AA2', 
   buttonText: '#FFFFFF', 
+  dislike: '#3F51B5', // Mavi ton
+  like: '#FF4081'     // Canlı pembe
 }; 
