@@ -9,7 +9,7 @@ const FinalStepScreen = () => {
 
   const handleGoHome = () => {
     // Ana sayfaya veya başka bir hedefe yönlendirme
-    navigation.navigate('HomeScreen'); // 'HomeScreen' yerine uygun ekran adını yazın
+    navigation.navigate('Main'); // 'HomeScreen' yerine uygun ekran adını yazın
   };
 
   return (
