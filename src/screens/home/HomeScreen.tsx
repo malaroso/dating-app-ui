@@ -1,134 +1,150 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, Image, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, Image, TouchableOpacity, ScrollView, TextInput } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
-import { PanGestureHandler, GestureHandlerRootView } from 'react-native-gesture-handler';
-import Animated, { useSharedValue, useAnimatedStyle, withSpring, runOnJS } from 'react-native-reanimated';
+import Animated, { useSharedValue } from 'react-native-reanimated';
 import { colors } from '../../styles/colors';
 
-const profiles = [
+const stories = [
   {
     id: 1,
-    name: 'Gracia, 23',
-    location: 'London, UK',
-    distance: '8.5 km Away',
-    image: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    image2: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    hobbies: ['Photography', 'Traveling', 'Music', 'Cars', 'History', 'Video Games'],
+    username: 'Your Story',
+    image: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg',
+    isSeen: false
   },
   {
     id: 2,
-    name: 'Sophia, 25',
-    location: 'New York, USA',
-    distance: '12 km Away',
-    image: 'https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    image2: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    hobbies: ['Dancing', 'Cooking', 'Art', 'Fitness'],
+    username: 'johndoe',
+    image: 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg',
+    isSeen: true
   },
   {
     id: 3,
-    name: 'Emma, 27',
-    location: 'Paris, France',
-    distance: '5 km Away',
-    image: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    image2: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    hobbies: ['Yoga', 'Photography', 'Writing', 'Movies'],
+    username: 'emilyrose',
+    image: 'https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg',
+    isSeen: false
   },
+];
+
+const matches = [
+  { id: 1, name: 'Gracia, 23', location: 'London, UK', match: '90%', image: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg' },
+  { id: 2, name: 'Marvin, 23', location: 'London, UK', match: '80%', image: 'https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg' },
+];
+
+const chatRooms = [
+  { id: 1, title: 'Music Lovers', image: 'https://images.pexels.com/photos/164854/pexels-photo-164854.jpeg' },
+  { id: 2, title: 'Travel Buddies', image: 'https://images.pexels.com/photos/346529/pexels-photo-346529.jpeg' },
+  { id: 3, title: 'Foodies', image: 'https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg' },
+  { id: 4, title: 'Tech Talk', image: 'https://images.pexels.com/photos/3183197/pexels-photo-3183197.jpeg' },
+];
+
+const recommendedUsers = [
+  { id: 1, name: 'Alice, 24', location: 'Paris, France', image: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg' },
+  { id: 2, name: 'Bob, 29', location: 'Berlin, Germany', image: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg' },
 ];
 
 const HomeScreen = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const translateX = useSharedValue(0);
-  
-  const nextProfile = () => {
-    if (currentIndex < profiles.length - 1) {
-      setCurrentIndex(currentIndex + 1);
-      translateX.value = 0; // Kartı sıfır konumuna getir
-    }
-  };
-
-  const animatedStyle = useAnimatedStyle(() => ({
-    transform: [{ translateX: translateX.value }],
-  }));
+  const opacity = useSharedValue(0);
+  const swipeText = useSharedValue('');
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <SafeAreaView style={styles.container}>
-        <View style={styles.header}>
-          <View style={styles.userInfo}>
-            <Image
-              source={require('../../../assets/300-2.jpg')}
-              style={styles.profileImage}
-            />
-            <View>
-              <Text style={styles.greeting}>
-                Hello, <Text style={styles.username}>Trignix</Text>
-              </Text>
-              <Text style={styles.subTitle}>Let's Find A Match!</Text>
+    <SafeAreaView style={styles.container}>
+      {/* Header */}
+      <View style={styles.header}>
+        <View style={styles.userInfo}>
+          <Image
+            source={require('../../../assets/300-2.jpg')}
+            style={styles.profileImage}
+          />
+          <View>
+            <Text style={styles.greeting}>
+              Hello, <Text style={styles.username}>Trignix</Text>
+            </Text>
+            <Text style={styles.subTitle}>Let's Find A Match!</Text>
+          </View>
+        </View>
+        <View style={styles.icons}>
+          <TouchableOpacity>
+            <FontAwesome name="bell" size={24} color={colors.text} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.iconMargin}>
+            <FontAwesome name="cog" size={24} color={colors.text} />
+          </TouchableOpacity>
+        </View>
+      </View>
+
+      <ScrollView style={styles.scrollView}>
+        {/* Stories */}
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.storiesContainer}>
+          {stories.map((story) => (
+            <View key={story.id} style={styles.storyItem}>
+              <View style={[styles.storyBorder, { borderColor: story.isSeen ? '#ddd' : colors.primary }]}>
+                <Image source={{ uri: story.image }} style={styles.storyImage} />
+              </View>
+              <Text style={styles.storyUsername}>{story.username}</Text>
             </View>
-          </View>
-          <View style={styles.icons}>
-            <TouchableOpacity>
-              <FontAwesome name="bell" size={24} color={colors.text} />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.iconMargin}>
-              <FontAwesome name="cog" size={24} color={colors.text} />
-            </TouchableOpacity>
-          </View>
+          ))}
+        </ScrollView>
+
+        {/* Search Bar */}
+        <View style={styles.searchContainer}>
+          <FontAwesome name="search" size={20} color="#ccc" />
+          <TextInput placeholder="Search here..." style={styles.searchInput} />
         </View>
 
-        <View style={styles.cardContainer}>
-          {currentIndex < profiles.length ? (
-            <PanGestureHandler
-              onGestureEvent={(event) => {
-                translateX.value = event.nativeEvent.translationX;
-              }}
-              onHandlerStateChange={(event) => {
-                if (event.nativeEvent.translationX < -150) {
-                  runOnJS(nextProfile)();
-                } else {
-                  translateX.value = withSpring(0);
-                }
-              }}
-            >
-              <Animated.View style={[styles.card, animatedStyle]}>
-                <ScrollView showsVerticalScrollIndicator={false}>
-                  <Image source={{ uri: profiles[currentIndex].image }} style={styles.matchImage} />
-                  <View style={styles.cardInfo}>
-                    <Text style={styles.matchName}>{profiles[currentIndex].name}</Text>
-                    <Text style={styles.matchDetails}>{profiles[currentIndex].location}</Text>
-                    <Text style={styles.matchDetails}>{profiles[currentIndex].distance}</Text>
-                    <View style={styles.hobbiesContainer}>
-                      <Text style={styles.hobbies}>Hobbies</Text>
-                      <View style={styles.hobbiesSpanContainer}>
-                        {profiles[currentIndex].hobbies.map((hobby, index) => (
-                          <Text key={index} style={styles.hobbiesSpan}>
-                            {hobby}
-                          </Text>
-                        ))}
-                      </View>
-                    </View>
+        {/* Best Matches */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Best Matches</Text>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {matches.map((match) => (
+              <View key={match.id} style={styles.matchCard}>
+                <Image source={{ uri: match.image }} style={styles.matchImage} />
+                <View style={styles.matchInfo}>
+                  <Text style={styles.matchName}>{match.name}</Text>
+                  <Text style={styles.matchLocation}>{match.location}</Text>
+                  <View style={styles.matchBadge}>
+                    <Text style={styles.matchBadgeText}>{match.match} Match</Text>
                   </View>
-                  <Image source={{ uri: profiles[currentIndex].image2 }} style={styles.matchImage} />
-                  <View style={styles.actionButtons}>
-                    <TouchableOpacity style={styles.actionButton}>
-                      <FontAwesome name="times" size={30} color="red" />
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.actionButton}>
-                      <FontAwesome name="star" size={30} color="blue" />
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.actionButton}>
-                      <FontAwesome name="thumbs-up" size={30} color="green" />
-                    </TouchableOpacity>
-                  </View>
-                </ScrollView>
-              </Animated.View>
-            </PanGestureHandler>
-          ) : (
-            <Text style={styles.noMoreMatches}>No more matches available.</Text>
-          )}
+                </View>
+              </View>
+            ))}
+          </ScrollView>
         </View>
-      </SafeAreaView>
-    </GestureHandlerRootView>
+
+        {/* Recommended For You */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Recommended For You</Text>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {recommendedUsers.map((user) => (
+              <View key={user.id} style={styles.recommendedCard}>
+                <Image source={{ uri: user.image }} style={styles.recommendedImage} />
+                <View style={styles.recommendedInfo}>
+                  <Text style={styles.recommendedName}>{user.name}</Text>
+                  <Text style={styles.recommendedLocation}>{user.location}</Text>
+                  <TouchableOpacity style={styles.superLikeButton}>
+                    <Text style={styles.superLikeText}>Send Super Like</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            ))}
+          </ScrollView>
+        </View>
+
+        {/* Chat Rooms */}
+        <View style={styles.sectionLast}>
+          <Text style={styles.sectionTitle}>Voice Chat Rooms</Text>
+          <View style={styles.chatRoomGrid}>
+            {chatRooms.map((room) => (
+              <View key={room.id} style={styles.chatRoomCard}>
+                <Image source={{ uri: room.image }} style={styles.chatRoomImage} />
+                <Text style={styles.chatRoomTitle}>{room.title}</Text>
+              </View>
+            ))}
+          </View>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
@@ -137,11 +153,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.background,
   },
+  scrollView: {
+    flex: 1,
+  },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 20,
+    padding: 15,
   },
   userInfo: {
     flexDirection: 'row',
@@ -170,72 +189,158 @@ const styles = StyleSheet.create({
   iconMargin: {
     marginLeft: 15,
   },
-  cardContainer: {
-    flex: 1,
+  storiesContainer: {
+    flexDirection: 'row',
+    paddingVertical: 0,
+    paddingHorizontal: 15,
+  },
+  storyItem: {
+    alignItems: 'center',
+    marginRight: 15,
+  },
+  storyBorder: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    borderWidth: 2,
     justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: 5,
   },
-  card: {
-    width: '90%',
+  storyImage: {
+    width: 54,
+    height: 54,
+    borderRadius: 27,
+  },
+  storyUsername: {
+    fontSize: 12,
+    color: colors.text,
+  },
+  searchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#f0f0f0',
+    margin: 15,
+    padding: 10,
     borderRadius: 10,
-    backgroundColor: colors.inputBackground,
+  },
+  searchInput: {
+    marginLeft: 10,
+    fontSize: 16,
+    flex: 1,
+  },
+  section: {
+    padding: 15,
+  },
+  sectionLast: {
+    padding: 15,
+    marginBottom: 50,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginHorizontal: 15,
+    marginBottom: 12,
+  },
+  matchCard: {
+    width: 150,
+    marginRight: 15,
+    borderRadius: 10,
     overflow: 'hidden',
-    elevation: 5,
+    backgroundColor: '#fff',
+    elevation: 3,
   },
   matchImage: {
     width: '100%',
-    height: 400,
-    borderRadius: 10,
+    height: 100,
   },
-  cardInfo: {
+  matchInfo: {
     padding: 10,
   },
   matchName: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    color: colors.text,
-  },
-  matchDetails: {
     fontSize: 16,
-    color: colors.text,
+    fontWeight: 'bold',
+  },
+  matchLocation: {
+    fontSize: 14,
+    color: '#777',
+  },
+  matchBadge: {
+    backgroundColor: colors.primary,
+    borderRadius: 5,
+    paddingVertical: 2,
+    paddingHorizontal: 5,
     marginTop: 5,
   },
-  hobbiesContainer: {
-    marginTop: 20,
-    marginBottom: 20,
+  matchBadgeText: {
+    color: '#fff',
+    fontSize: 12,
   },
-  hobbies: {
+  recommendedCard: {
+    width: 150,
+    marginRight: 15,
+    borderRadius: 10,
+    overflow: 'hidden',
+    backgroundColor: '#fff',
+    elevation: 3,
+  },
+  recommendedImage: {
+    width: '100%',
+    height: 100,
+  },
+  recommendedInfo: {
+    padding: 10,
+  },
+  recommendedName: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: colors.text,
   },
-  hobbiesSpanContainer: {
+  recommendedLocation: {
+    fontSize: 14,
+    color: '#777',
+  },
+  superLikeButton: {
+    backgroundColor: colors.primary,
+    borderRadius: 5,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    marginTop: 5,
+    alignItems: 'center',
+  },
+  superLikeText: {
+    color: '#fff',
+    fontSize: 12,
+  },
+  chatRoomGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    marginTop: 5,
+    justifyContent: 'space-between',
+    paddingHorizontal: 15,
   },
-  hobbiesSpan: {
-    backgroundColor: '#FF5864',
-    color: 'white',
-    padding: 5,
-    borderRadius: 5,
-    marginRight: 5,
-    marginBottom: 5,
+  chatRoomCard: {
+    width: '48%',
+    marginBottom: 15,
+    borderRadius: 10,
+    overflow: 'hidden',
+    backgroundColor: '#fff',
+    elevation: 3,
   },
-  noMoreMatches: {
-    fontSize: 18,
-    color: colors.text,
+  chatRoomImage: {
+    width: '100%',
+    height: 100,
+  },
+  chatRoomTitle: {
+    padding: 10,
+    fontSize: 16,
     fontWeight: 'bold',
+    textAlign: 'center',
   },
-  actionButtons: {
+  bottomNav: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginVertical: 10,
-    marginTop: 50,
-    marginBottom: 100,
-  },
-  actionButton: {
-    padding: 10,
+    paddingVertical: 10,
+    borderTopWidth: 1,
+    borderTopColor: '#eee',
   },
 });
 
