@@ -8,7 +8,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 type RootStackParamList = {
   Login: undefined;
   PhoneNumberScreen: undefined;
-  HomeScreen: undefined;
+  Main: undefined;
 };
 
 type LoginScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Login'>;
@@ -52,7 +52,7 @@ const LoginScreen = () => {
             <Text style={styles.forgotPassword}>Forgot Password?</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('HomeScreen')}>
+          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Main')}>
             <Text style={styles.buttonText}>Sign in</Text>
           </TouchableOpacity>
 
