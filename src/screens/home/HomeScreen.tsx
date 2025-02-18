@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, SafeAreaView, Image, TouchableOpacity, ScrollVi
 import { FontAwesome } from '@expo/vector-icons';
 import Animated, { useSharedValue } from 'react-native-reanimated';
 import { colors } from '../../styles/colors';
-
+import Header from '../../components/Header';
 const stories = [
   {
     id: 1,
@@ -50,29 +50,7 @@ const HomeScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Header */}
-      <View style={styles.header}>
-        <View style={styles.userInfo}>
-          <Image
-            source={require('../../../assets/300-2.jpg')}
-            style={styles.profileImage}
-          />
-          <View>
-            <Text style={styles.greeting}>
-              Hello, <Text style={styles.username}>Trignix</Text>
-            </Text>
-            <Text style={styles.subTitle}>Let's Find A Match!</Text>
-          </View>
-        </View>
-        <View style={styles.icons}>
-          <TouchableOpacity>
-            <FontAwesome name="bell" size={24} color={colors.text} />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.iconMargin}>
-            <FontAwesome name="cog" size={24} color={colors.text} />
-          </TouchableOpacity>
-        </View>
-      </View>
+        <Header />
 
       <ScrollView style={styles.scrollView}>
         {/* Stories */}
