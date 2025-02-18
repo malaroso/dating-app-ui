@@ -6,6 +6,9 @@ import FinalStepScreen from '../screens/FinalStepScreen';
 import { FontAwesome } from '@expo/vector-icons';
 import { View, StyleSheet } from 'react-native';
 import MatchScreen from '../screens/home/MatchScreen';
+import MyMatched from '../screens/home/MyMatched';
+import ProfileScreen from '../screens/home/ProfileScreen';
+import MessagesScreen from '../screens/home/MessagesScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -20,13 +23,13 @@ const BottomTabNavigator = () => {
             iconName = 'home';
           } else if (route.name === 'MatchScreen') {
             iconName = 'compass';
-          } else if (route.name === 'FinalStep') {
+          } else if (route.name === 'MyMatched') {
             iconName = 'heart';
-          }
-          else if (route.name === 'Profile') {
+          } else if (route.name === 'Message') {
+            iconName = 'comment';
+          } else if (route.name === 'Profile') {
             iconName = 'user';
           }
-
           return <FontAwesome name={iconName as any} size={size} color={color} />;
         },
         tabBarShowLabel: false,
@@ -38,8 +41,9 @@ const BottomTabNavigator = () => {
     >
       <Tab.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
       <Tab.Screen name="MatchScreen" component={MatchScreen} options={{ headerShown: false }} />
-      <Tab.Screen name="FinalStep" component={FinalStepScreen} options={{ headerShown: false }} />
-      <Tab.Screen name="Profile" component={FinalStepScreen} options={{ headerShown: false }} />
+      <Tab.Screen name="MyMatched" component={MyMatched} options={{ headerShown: false }} />
+      <Tab.Screen name="Message" component={MessagesScreen} options={{ headerShown: false }} />
+      <Tab.Screen name="Profile" component={ProfileScreen} options={{ headerShown: false }} />
     </Tab.Navigator>
   );
 };
