@@ -42,8 +42,8 @@ const MatchScreen = () => {
   const swipeText = useSharedValue('');
   
   const nextProfile = () => {
-    if (currentIndex < profiles.length - 1) {
-      setCurrentIndex(currentIndex + 1);
+    if (currentIndex < profiles.length) {
+      setCurrentIndex(prev => Math.min(prev + 1, profiles.length));
       translateX.value = 0;
       swipeText.value = '';
       opacity.value = withSpring(0);
@@ -100,9 +100,7 @@ const MatchScreen = () => {
                 swipeText.value = event.nativeEvent.translationX < 0 ? 'heart' : '';
               }}
               onHandlerStateChange={(event) => {
-                if (event.nativeEvent.translationX < -200) {
-                  runOnJS(nextProfile)();
-                } else if (event.nativeEvent.translationX > 200) {
+                if (Math.abs(event.nativeEvent.translationX) > 200) {
                   runOnJS(nextProfile)();
                 } else {
                   translateX.value = withSpring(0);
@@ -119,13 +117,17 @@ const MatchScreen = () => {
                     <Text style={styles.matchDetails}>{profiles[currentIndex].distance}</Text>
                     <View style={styles.hobbiesContainer}>
                       <Text style={styles.hobbies}>Hobbies</Text>
-                      <View style={styles.hobbiesSpanContainer}>
+                      <ScrollView 
+                        horizontal 
+                        showsHorizontalScrollIndicator={false}
+                        contentContainerStyle={styles.hobbiesScrollContent}
+                      >
                         {profiles[currentIndex].hobbies.map((hobby, index) => (
                           <Text key={index} style={styles.hobbiesSpan}>
                             {hobby}
                           </Text>
                         ))}
-                      </View>
+                      </ScrollView>
                     </View>
                   </View>
                   <Image source={{ uri: profiles[currentIndex].image2 }} style={styles.matchImage} />
@@ -236,17 +238,15 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: colors.text,
   },
-  hobbiesSpanContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    marginTop: 5,
+  hobbiesScrollContent: {
+    gap: 8,
+    paddingRight: 15
   },
   hobbiesSpan: {
     backgroundColor: '#FF5864',
     color: 'white',
     padding: 5,
     borderRadius: 5,
-    marginRight: 5,
     marginBottom: 5,
   },
   noMoreMatches: {
