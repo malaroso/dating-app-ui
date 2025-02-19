@@ -28,6 +28,7 @@ const stories = [
 const matches = [
   { id: 1, name: 'Gracia, 23', location: 'London, UK', match: '90%', image: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg' },
   { id: 2, name: 'Marvin, 23', location: 'London, UK', match: '80%', image: 'https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg' },
+  { id: 3, name: 'Emma, 27', location: 'Paris, France', match: '70%', image: 'https://images.pexels.com/photos/3992656/pexels-photo-3992656.png?auto=compress&cs=tinysrgb&w=600' },
 ];
 
 const chatRooms = [

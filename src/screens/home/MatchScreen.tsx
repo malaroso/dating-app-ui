@@ -8,32 +8,73 @@ import { colors } from '../../styles/colors';
 const profiles = [
   {
     id: 1,
-    name: 'Gracia, 23',
+    name: 'Gracia',
     location: 'London, UK',
     distance: '8.5 km Away',
+    age: '23',
+    height: '170 cm',
+    description: 'I am a passionate dancer and a great cook. I love to travel and explore new cultures.',
+    speak: 'English, French',
     image: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
     image2: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
     hobbies: ['Photography', 'Traveling', 'Music', 'Cars', 'History', 'Video Games'],
   },
   {
     id: 2,
-    name: 'Sophia, 25',
+    name: 'Sophia',
     location: 'New York, USA',
     distance: '12 km Away',
+    age: '25',
+    height: '165 cm',
+    speak: 'English, Spanish',
+    description: 'I am a passionate dancer and a great cook. I love to travel and explore new cultures.',
     image: 'https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    image2: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+    image2: 'https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
     hobbies: ['Dancing', 'Cooking', 'Art', 'Fitness'],
   },
   {
     id: 3,
-    name: 'Emma, 27',
+    name: 'Emma',
     location: 'Paris, France',
     distance: '5 km Away',
+    age: '27',
+    height: '170 cm',
+    speak: 'English, French',
+    description: 'I am a passionate dancer and a great cook. I love to travel and explore new cultures.',
     image: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    image2: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+    image2: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
     hobbies: ['Yoga', 'Photography', 'Writing', 'Movies'],
   },
+  {
+    id: 4,
+    name: 'Elise',
+    location: 'Paris, France',
+    distance: '5 km Away',
+    age: '27',
+    height: '170 cm',
+    speak: 'English, French',
+    description: 'I am a passionate dancer and a great cook. I love to travel and explore new cultures.',
+    image: 'https://images.pexels.com/photos/1758144/pexels-photo-1758144.jpeg?auto=compress&cs=tinysrgb&w=600',
+    image2: 'https://images.pexels.com/photos/1758144/pexels-photo-1758144.jpeg?auto=compress&cs=tinysrgb&w=600',
+    hobbies: ['Yoga', 'Photography', 'Writing', 'Movies'],
+  }
 ];
+
+const hobbyIcons: { [key: string]: string } = {
+  Photography: 'camera',
+  Traveling: 'plane',
+  Music: 'music',
+  Cars: 'car',
+  History: 'book',
+  'Video Games': 'gamepad',
+  Dancing: 'music',
+  Cooking: 'cutlery',
+  Art: 'paint-brush',
+  Fitness: 'heartbeat',
+  Yoga: 'leaf',
+  Writing: 'pencil',
+  Movies: 'film',
+};
 
 const MatchScreen = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -112,22 +153,22 @@ const MatchScreen = () => {
                 <ScrollView showsVerticalScrollIndicator={false}>
                   <Image source={{ uri: profiles[currentIndex].image }} style={styles.matchImage} />
                   <View style={styles.cardInfo}>
-                    <Text style={styles.matchName}>{profiles[currentIndex].name}</Text>
-                    <Text style={styles.matchDetails}>{profiles[currentIndex].location}</Text>
-                    <Text style={styles.matchDetails}>{profiles[currentIndex].distance}</Text>
+                    <Text style={styles.matchName}>{profiles[currentIndex].name}, {profiles[currentIndex].age}</Text>
+                    <Text style={styles.matchDetails}> <FontAwesome name="map-marker" size={16} color={colors.text} /> {profiles[currentIndex].location}</Text>
+                    <Text style={styles.matchDetails}> <FontAwesome name="location-arrow" size={16} color={colors.text} /> {profiles[currentIndex].distance}</Text>
+                    <Text style={styles.description}> <FontAwesome name="user" size={16} color={colors.text} /> {profiles[currentIndex].description}</Text>
+                    <Text style={styles.matchDetails}> <FontAwesome name="volume-up" size={16} color={colors.text} /> Speaks: {profiles[currentIndex].speak}</Text>
+                    <Text style={styles.matchDetails}> <FontAwesome name="arrows-v" size={16} color={colors.text} /> Height: {profiles[currentIndex].height}</Text>
                     <View style={styles.hobbiesContainer}>
-                      <Text style={styles.hobbies}>Hobbies</Text>
-                      <ScrollView 
-                        horizontal 
-                        showsHorizontalScrollIndicator={false}
-                        contentContainerStyle={styles.hobbiesScrollContent}
-                      >
+                      <Text style={styles.hobbies}>Interest</Text>
+                      <View style={styles.hobbiesIcons}>
                         {profiles[currentIndex].hobbies.map((hobby, index) => (
-                          <Text key={index} style={styles.hobbiesSpan}>
-                            {hobby}
-                          </Text>
+                          <View key={index} style={styles.hobbyIcon}>
+                            <FontAwesome name={hobbyIcons[hobby] || 'star'} size={16} color="#FFFF" />
+                            <Text style={styles.hobbyText}>{hobby}</Text>
+                          </View>
                         ))}
-                      </ScrollView>
+                      </View>
                     </View>
                   </View>
                   <Image source={{ uri: profiles[currentIndex].image2 }} style={styles.matchImage} />
@@ -229,25 +270,40 @@ const styles = StyleSheet.create({
     color: colors.text,
     marginTop: 5,
   },
+  description: {
+    fontSize: 14,
+    color: colors.text,
+    marginVertical: 10,
+  },
   hobbiesContainer: {
     marginTop: 20,
     marginBottom: 20,
   },
   hobbies: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
+    marginBottom: 10,
     color: colors.text,
   },
-  hobbiesScrollContent: {
-    gap: 8,
-    paddingRight: 15
+  hobbiesIcons: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginTop: 5,
   },
-  hobbiesSpan: {
+  hobbyIcon: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginRight: 10,
+    marginBottom: 10,
     backgroundColor: '#FF5864',
-    color: 'white',
-    padding: 5,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
     borderRadius: 5,
-    marginBottom: 5,
+  },
+  hobbyText: {
+    marginLeft: 5,
+    fontSize: 14,
+    color: '#ffff',
   },
   noMoreMatches: {
     fontSize: 18,

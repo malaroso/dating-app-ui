@@ -1,8 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet, SafeAreaView, TextInput, ScrollView, TouchableOpacity, Image } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 const ChatScreen = () => {
+    const navigation = useNavigation();
     const messages = [
         { id: '1', text: "Hi there! How's it going?", time: '11:02 AM', sent: true },
         { id: '2', text: "Hey! I'm doing well, thanks for asking. How about you?", time: '11:03 AM', sent: false },
@@ -14,7 +16,7 @@ const ChatScreen = () => {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.goBack()}>
                     <FontAwesome name="arrow-left" size={24} color="#000" />
                 </TouchableOpacity>
                 <Text style={styles.title}>Peggie, 23</Text>

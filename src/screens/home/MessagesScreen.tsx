@@ -1,10 +1,11 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, SafeAreaView, TextInput, FlatList, TouchableOpacity } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { RootStackParamList } from '../../navigation/types';
 
 const MessagesScreen = () => {
-    const navigation = useNavigation();
+    const navigation = useNavigation<NavigationProp<RootStackParamList>>();
     const matches = [
         { id: '1', name: 'Dianne', age: 19, image: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg' },
         { id: '2', name: 'Jane', age: 21, image: 'https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg' },
