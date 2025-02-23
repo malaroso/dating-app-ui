@@ -1,4 +1,4 @@
-# Chat Uygulaması
+# Sohbet (dating app) Uygulaması
 
 Bu proje, bir sohbet uygulaması kullanıcı arayüzü (UI) örneğidir. Uygulama, mesajlaşma ekranı ve mesaj giriş alanı gibi temel bileşenleri içerir. Bu proje, herhangi bir API bağlantısı içermemektedir ve sadece ön uç geliştirme amacıyla tasarlanmıştır.
 
@@ -22,8 +22,8 @@ Bu proje, bir sohbet uygulaması kullanıcı arayüzü (UI) örneğidir. Uygulam
 
 1. Projeyi klonlayın:
    ```bash
-   git clone https://github.com/kullaniciadi/chat-uygulamasi.git
-   cd chat-uygulamasi
+   git clone https://github.com/kullaniciadi/project-name.git
+   cd project-name
    ```
 
 2. Gerekli paketleri yükleyin:
@@ -38,7 +38,7 @@ Bu proje, bir sohbet uygulaması kullanıcı arayüzü (UI) örneğidir. Uygulam
 
 ---
 
-# Chat Application
+# Dating APP Application
 
 This project is a sample user interface (UI) for a chat application. It includes basic components such as a messaging screen and a message input area. This project does not include any API connections and is designed solely for front-end development purposes.
 
@@ -61,8 +61,8 @@ This project is a sample user interface (UI) for a chat application. It includes
 
 1. Clone the project:
    ```bash
-   git clone https://github.com/username/chat-application.git
-   cd chat-application
+   git clone https://github.com/username/project-name.git
+   cd project-name
    ```
 
 2. Install the required packages:
