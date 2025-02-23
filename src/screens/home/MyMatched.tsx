@@ -11,7 +11,7 @@ const MyMatched = () => {
     const matches = [
         { id: '1', name: 'Gracia, 23', image: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg' },
         { id: '2', name: 'Marvin, 23', image: 'https://images.pexels.com/photos/1858175/pexels-photo-1858175.jpeg?auto=compress&cs=tinysrgb&w=600' },
-        { id: '3', name: 'John, 23', image: 'https://images.pexels.com/photos/1758144/pexels-photo-1758144.jpeg?auto=compress&cs=tinysrgb&w=600' },
+        { id: '3', name: 'Elise, 23', image: 'https://images.pexels.com/photos/1758144/pexels-photo-1758144.jpeg?auto=compress&cs=tinysrgb&w=600' },
     ];
 
     return (

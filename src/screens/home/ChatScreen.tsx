@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, SafeAreaView, TextInput, ScrollView, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, TextInput, ScrollView, TouchableOpacity, Image, KeyboardAvoidingView, Platform } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
@@ -14,38 +14,43 @@ const ChatScreen = () => {
     ];
 
     return (
-        <SafeAreaView style={styles.container}>
-            <View style={styles.header}>
-                <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <FontAwesome name="arrow-left" size={24} color="#000" />
-                </TouchableOpacity>
-                <Text style={styles.title}>Peggie, 23</Text>
-                <Image source={{ uri: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg' }} style={styles.profileImage} />
-            </View>
-            <ScrollView style={styles.messagesContainer}>
-                {messages.map((message) => (
-                    <View key={message.id} style={styles.messageRow}>
-                        {!message.sent && (
-                            <Image source={{ uri: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg' }} style={styles.messageProfileImage} />
-                        )}
-                        <View style={[styles.messageBubble, message.sent ? styles.sent : styles.received]}>
-                            <Text style={styles.messageText}>{message.text}</Text>
-                            <Text style={styles.messageTime}>{message.time}</Text>
+        <KeyboardAvoidingView
+            style={{ flex: 1 }}
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+        >
+            <SafeAreaView style={styles.container}>
+                <View style={styles.header}>
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
+                        <FontAwesome name="arrow-left" size={24} color="#000" />
+                    </TouchableOpacity>
+                    <Text style={styles.title}>Peggie, 23</Text>
+                    <Image source={{ uri: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg' }} style={styles.profileImage} />
+                </View>
+                <ScrollView style={styles.messagesContainer}>
+                    {messages.map((message) => (
+                        <View key={message.id} style={styles.messageRow}>
+                            {!message.sent && (
+                                <Image source={{ uri: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg' }} style={styles.messageProfileImage} />
+                            )}
+                            <View style={[styles.messageBubble, message.sent ? styles.sent : styles.received]}>
+                                <Text style={styles.messageText}>{message.text}</Text>
+                                <Text style={styles.messageTime}>{message.time}</Text>
+                            </View>
                         </View>
-                    </View>
-                ))}
-            </ScrollView>
-            <View style={styles.inputContainer}>
-                <TextInput
-                    style={styles.input}
-                    placeholder="Message"
-                    placeholderTextColor="#999"
-                />
-                <TouchableOpacity>
-                    <FontAwesome name="paper-plane" size={24} color="#FF69B4" />
-                </TouchableOpacity>
-            </View>
-        </SafeAreaView>
+                    ))}
+                </ScrollView>
+                <View style={styles.inputContainer}>
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Message"
+                        placeholderTextColor="#999"
+                    />
+                    <TouchableOpacity>
+                        <FontAwesome name="paper-plane" size={24} color="#FF69B4" />
+                    </TouchableOpacity>
+                </View>
+            </SafeAreaView>
+        </KeyboardAvoidingView>
     );
 };
 
