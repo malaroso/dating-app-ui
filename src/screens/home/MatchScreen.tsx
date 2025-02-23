@@ -117,7 +117,7 @@ const MatchScreen = () => {
             />
             <View>
               <Text style={styles.greeting}>
-                Hello, <Text style={styles.username}>Trignix</Text>
+                Hello, <Text style={styles.username}>Malarosso</Text>
               </Text>
               <Text style={styles.subTitle}>Let's Find A Match!</Text>
             </View>

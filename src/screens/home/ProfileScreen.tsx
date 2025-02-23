@@ -6,8 +6,8 @@ import { colors } from '../../styles/colors';
 
 const ProfileScreen = () => {
     const user = {
-        name: 'Trignix Infotech',
-        email: 'trignixinfo@gmail.com',
+        name: 'Malarosso Infotech',
+        email: 'malarossoinfotech@gmail.com',
         image: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg',
     };
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from '../screens/home/HomeScreen';
-import UserInfoScreen from '../screens/UserInfoScreen';
-import FinalStepScreen from '../screens/FinalStepScreen';
+import UserInfoScreen from '../screens/auth/UserInfoScreen';
+import FinalStepScreen from '../screens/auth/FinalStepScreen';
 import { FontAwesome } from '@expo/vector-icons';
 import { View, StyleSheet } from 'react-native';
 import MatchScreen from '../screens/home/MatchScreen';

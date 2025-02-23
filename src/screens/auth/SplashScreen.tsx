@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Animated, Image } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { colors } from '../styles/colors';
+import { colors } from '../../styles/colors';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Ionicons } from '@expo/vector-icons';
@@ -20,7 +20,7 @@ const SplashScreen = () => {
   const moveAnim = useRef(new Animated.Value(0)).current;
 
   const [fontsLoaded] = Font.useFonts({
-    'Montserrat-Medium': require('../../assets/fonts/Montserrat-Medium.ttf'),
+    'Montserrat-Medium': require('../../../assets/fonts/Montserrat-Medium.ttf'),
   });
 
   useEffect(() => {
@@ -85,7 +85,7 @@ const SplashScreen = () => {
       </Animated.View>
       <View style={styles.container}>
         <Animated.View style={{ transform: [{ scale: scaleAnim }] }}>
-          <Image source={require('../../assets/remove-logo.png')} style={styles.logo} />
+          <Image source={require('../../../assets/remove-logo.png')} style={styles.logo} />
         </Animated.View>
         <Text style={styles.subtitle}>Find your perfect match and connect on a deeper level. 💖</Text>
       </View>

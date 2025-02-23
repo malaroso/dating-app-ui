@@ -4,7 +4,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { FontAwesome } from '@expo/vector-icons';
-import { colors } from '../styles/colors';
+import { colors } from '../../styles/colors';
 
 // Stack parametrelerini tanımlayın
 type RootStackParamList = {

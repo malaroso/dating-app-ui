@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, SafeAreaView, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
-import { colors } from '../styles/colors';
+import { colors } from '../../styles/colors';
 import { FontAwesome } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -23,7 +23,7 @@ const LoginScreen = () => {
     >
       <SafeAreaView style={styles.innerContainer}>
         <View style={styles.logoContainer}>
-          <Image source={require('../../assets/remove-logo.png')} style={styles.logo} />
+          <Image source={require('../../../assets/remove-logo.png')} style={styles.logo} />
         </View>
         <ScrollView contentContainerStyle={styles.inlineContainer}>
           <Text style={styles.title}>Sign In</Text>

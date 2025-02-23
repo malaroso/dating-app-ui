@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, SafeAreaView } from 'react-native';
-import { colors } from '../styles/colors';
+import { colors } from '../../styles/colors';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { FontAwesome } from '@expo/vector-icons';
@@ -23,7 +23,7 @@ const VerificationScreen = () => {
   const inputs = useRef<Array<TextInput | null>>([]);
 
   const [fontsLoaded] = Font.useFonts({
-    'Montserrat-Medium': require('../../assets/fonts/Montserrat-Medium.ttf'),
+    'Montserrat-Medium': require('../../../assets/fonts/Montserrat-Medium.ttf'),
   });
 
   if (!fontsLoaded) {

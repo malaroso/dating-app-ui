@@ -12,8 +12,6 @@ const MyMatched = () => {
         { id: '1', name: 'Gracia, 23', image: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg' },
         { id: '2', name: 'Marvin, 23', image: 'https://images.pexels.com/photos/1858175/pexels-photo-1858175.jpeg?auto=compress&cs=tinysrgb&w=600' },
         { id: '3', name: 'John, 23', image: 'https://images.pexels.com/photos/1758144/pexels-photo-1758144.jpeg?auto=compress&cs=tinysrgb&w=600' },
-        { id: '4', name: 'İnji, 24', image: 'https://cdn.powergroup.com.tr/image/1280x1280/powerapp/u/Contents/i/n/inji-kimdir-kac-yasinda-nereli-gercek-adi-ne-1706021521.png' },
- 
     ];
 
     return (

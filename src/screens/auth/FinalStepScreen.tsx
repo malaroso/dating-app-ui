@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { FontAwesome } from '@expo/vector-icons';
-import { colors } from '../styles/colors';
+import { colors } from '../../styles/colors';
 
 const FinalStepScreen = () => {
   const navigation = useNavigation();
